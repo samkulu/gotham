@@ -1,0 +1,19 @@
+Package: gotham
+Type: Package
+Title: Download Articles from GothamCity.ch 
+Version: 0.1.0
+Author: person(given = "Samuel",
+             family = "Meichtry",
+             role = c("auth","cre"),
+             email = "samuel.meichtry@swisslancer.com",
+             comment = c(ORCID = "0000-0003-2165-791X"))
+Maintainer: The package maintainer <samuel.meichtry@swisslancer.com>
+Description: Download articles from gothamcity.ch
+    Used for further desktop search analysis.
+License: GPL-3
+Encoding: UTF-8
+Suggested:
+  jsonlite,
+  curl,
+  httr
+LazyData: true
