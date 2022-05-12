@@ -1,4 +1,4 @@
-#' Get WordPress Json (wp-json)
+#' Get WordPress Json File (wp-json)
 #'
 #' @param typ
 #'
@@ -6,8 +6,8 @@
 #' @export
 #'
 #' @examples
-#' json_wp()
-json_wp<- function(typ = "posts",  dest = "../gothamcity/json"){
+#' posts <- json_wp()
+json_wp<- function(typ = "posts",  dest = NA){
   require(jsonlite)
 
   # Request Typ
@@ -24,12 +24,16 @@ json_wp<- function(typ = "posts",  dest = "../gothamcity/json"){
   tmp <- readLines(url, warn = FALSE)
 
   # Export
-  filename <- paste(Sys.Date(),"_",typ,".json",sep="")
-  fullname <- file.path(dest,filename)
+  if(is.na(dest) && exists("user")) dest <- user$DESTINATION
+  if (is.na(dest)) stop("Missing Destination!")
 
+  filename <- paste(Sys.Date(), "_", typ, ".json", sep="")
+  fullname <- file.path(dest, "json", filename)
+
+  # Create folders
   if(!dir.exists(dest)) dir.create(dest, recursive = TRUE)
-
-  if(!file.exists(fullname)) writeLines(tmp,fullname)
+  # Do not overwrite
+  if(!file.exists(fullname)) writeLines(tmp, fullname)
 
   page <- fromJSON(tmp, flatten=TRUE)
 
@@ -44,6 +48,7 @@ json_wp<- function(typ = "posts",  dest = "../gothamcity/json"){
 #' @export
 #'
 #' @examples
+#' posts <- get_posts()
 get_posts <- function(){
   json_wp("posts")
 }
