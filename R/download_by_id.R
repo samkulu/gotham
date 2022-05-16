@@ -56,9 +56,8 @@ download_by_id <- function(id, dest = NA, overwrite = FALSE){
   # Proxy-Server
   proxy <- get_proxy()
 
-  set_config(
-    use_proxy(url = proxy[1], port = as.numeric(proxy[2]),
-              username=proxy_user[1],password = proxy_user[2] , auth="any"),
+  httr::set_config(
+    use_proxy(url = proxy, username=proxy_user[1],password = proxy_user[2] , auth="any"),
     override = TRUE
   )
 
@@ -83,9 +82,6 @@ download_by_id <- function(id, dest = NA, overwrite = FALSE){
     `User-Agent` = "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Mobile Safari/537.36 Edg/99.0.1150.55"
   )
 
-# browser()
-# # Fehler in curl::handle_setopt(handle, .list = req$options) :
-# #   A libcurl function was given a bad argument
 
   responseJSON <- httr::GET(urlJSON, h)
 
