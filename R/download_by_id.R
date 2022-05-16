@@ -27,7 +27,7 @@ download_by_id <- function(id, dest = NA, overwrite = FALSE){
     # if not yet stored
     login()
     # copy-from developer tools
-    # store cookie it with
+    # store cookie into global variable "cookie"
     # cookie <<- r"(...)"
     browser()
   }
