@@ -11,6 +11,7 @@
 #' set_user()
 #' posts <- get_posts()
 #' download_by_id(posts$id)
+#' downloaf_byid(34609) # 34626 not working
 download_by_id <- function(id, dest = NA, overwrite = FALSE){
   require(httr)
 
@@ -30,6 +31,9 @@ download_by_id <- function(id, dest = NA, overwrite = FALSE){
     # store cookie into global variable "cookie"
     # cookie <<- r"(...)"
     browser()
+
+    # Log cookie
+    log_cookie(cookie)
   }
 
   stopifnot(exists("cookie"))
@@ -88,11 +92,9 @@ download_by_id <- function(id, dest = NA, overwrite = FALSE){
   # HTTP Error Code
   # https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   if(responseJSON$status_code >= 400) {
-    write(format(Sys.time(), "%Y-%m-%d %H:%M"),
-          " ID=", id,
-          " REQUEST=", urlJSON,
-          " Cookie=", cookie,
-          file ="./gotham.log", append=TRUE)
+    tmp <- paste0(" HTTPCODE=", responseJSON$status_code,
+                  " REQUEST=", urlJSON )
+    log_error(tmp)
     return(NULL)
   }
 

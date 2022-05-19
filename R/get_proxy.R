@@ -31,7 +31,7 @@ get_proxy <- function(verbose = FALSE){
 #' @examples
 #' get_proxy_user()
 get_proxy_user <- function(path = Sys.getenv("R_USER"),
-                           file = ".usr"){
+                           file = ".proxyusr"){
   # Stored credentials in a hidden file in a encrypted folder
   filename <- file.path(path, file)
   # Return
