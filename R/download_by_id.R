@@ -11,7 +11,7 @@
 #' set_user()
 #' posts <- get_posts()
 #' download_by_id(posts$id)
-#' downloaf_byid(34609) # 34626 not working
+#' download_by_id(34828:34999) # brute force
 download_by_id <- function(id, dest = NA, overwrite = FALSE){
   require(httr)
 
@@ -126,6 +126,8 @@ download_by_id <- function(id, dest = NA, overwrite = FALSE){
     writeLines(page, filename, useBytes = TRUE)
     filename <- gsub("\\.html","\\.json",filename)
     writeLines(json, filename, useBytes = TRUE)
+  } else {
+    cat(filename, " already exists")
   }
 
 }

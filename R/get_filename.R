@@ -14,9 +14,17 @@ get_filename <- function(x, id, dest){
   m <- gregexpr("20[0-9]{2}\\/[0-9]{2}\\/[0-9]{2}",x)
   dt <- as.Date(gsub("\\/","-",regmatches(x, m)))
   filename <- paste(format(dt, "%Y%m%d"),"_", basename(x),"_(",id,").html",sep="")
-  if(length(grep("gothamcity\\.fr", x)) == 1)
+  if(class(dt) == "Date"){
+    if(length(grep("gothamcity\\.fr", x)) == 1)
     fullname <- file.path(dest, format(dt, "%Y"), "AboFR",filename)
-  else
-    fullname <- file.path(dest, format(dt, "%Y"), filename)
+    else
+      fullname <- file.path(dest, format(dt, "%Y"), filename)
+  } else {
+    # Missing Date info
+    browser()
+    stop("Missing Date info!")
+  }
+
+  # Return
   fullname
 }
