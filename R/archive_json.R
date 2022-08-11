@@ -30,7 +30,7 @@ archive_json <- function(year = format(Sys.Date(),"%Y"), src = NA){
   # Make shure you get back to original dir
   on.exit(setwd(oldPath))
 
-  # Goto location
+  # Goto source location
   path <- file.path(src,"json")
   stopifnot(dir.exists(path))
   setwd(path)
