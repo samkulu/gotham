@@ -75,15 +75,15 @@ download_by_id <- function(id, dest = NA, overwrite = FALSE){
     Cookie =  cookie,
     Host = "gothamcity.ch",
     # Referer = "https://gothamcity.ch/mon-compte/",
-    `sec-ch-ua` =  "\" Not;A Brand\";v=\"99\", \"Microsoft Edge\";v=\"96\", \"Chromium\";v=\"96\"",
-    `sec-ch-ua-mobile` = "?1",
-    `sec-ch-ua-platform` = "Android",
+    `sec-ch-ua` =  "\"Chromium\";v=\"104\", \" Not A;Brand\";v=\"99\", \"Microsoft Edge\";v=\"104\"",
+    `sec-ch-ua-mobile` = "?0",
+    `sec-ch-ua-platform` = "Windows",
     `Sec-Fetch-Dest` = "document",
     `Sec-Fetch-Mode` = "navigate",
     `Sec-Fetch-Site` = "none",
     `Sec-Fetch-User` = "?1",
     `Upgrade-Insecure-Requests` = "1",
-    `User-Agent` = "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Mobile Safari/537.36 Edg/99.0.1150.55"
+    `User-Agent` = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.81 Safari/537.36 Edg/104.0.1293.47"
   )
 
 
