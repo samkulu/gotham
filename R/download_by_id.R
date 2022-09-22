@@ -12,7 +12,7 @@
 #' posts <- get_posts()
 #' download_by_id(posts$id)
 #' download_by_id(34828:34999) # brute force
-download_by_id <- function(id, dest = NA, overwrite = FALSE){
+download_by_id <- function(id, dest = NA, overwrite = FALSE, browse = 3L){
   require(httr)
 
   if(is.na(dest) && exists("user")) dest <- user$DESTINATION
@@ -35,6 +35,10 @@ download_by_id <- function(id, dest = NA, overwrite = FALSE){
     # Log cookie
     log_cookie(cookie)
   }
+
+  # Look for authentication cookie
+  if(grep("wfwaf-authcookie",cookie) < 1)
+    browser()
 
   stopifnot(exists("cookie"))
 
@@ -66,6 +70,7 @@ download_by_id <- function(id, dest = NA, overwrite = FALSE){
   )
 
   # GET Json Response
+
   h <- httr::add_headers(
     `Accept` = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
     `Accept-Encoding` = "gzip, deflate, br",
@@ -75,7 +80,7 @@ download_by_id <- function(id, dest = NA, overwrite = FALSE){
     Cookie =  cookie,
     Host = "gothamcity.ch",
     # Referer = "https://gothamcity.ch/mon-compte/",
-    `sec-ch-ua` =  "\"Chromium\";v=\"104\", \" Not A;Brand\";v=\"99\", \"Microsoft Edge\";v=\"104\"",
+    `sec-ch-ua` =  "\"Microsoft Edge\";v=\"105\", \"Not)A;Brand\";v=\"8\", \"Chromium\";v=\"105\"",
     `sec-ch-ua-mobile` = "?0",
     `sec-ch-ua-platform` = "Windows",
     `Sec-Fetch-Dest` = "document",
@@ -83,13 +88,12 @@ download_by_id <- function(id, dest = NA, overwrite = FALSE){
     `Sec-Fetch-Site` = "none",
     `Sec-Fetch-User` = "?1",
     `Upgrade-Insecure-Requests` = "1",
-    `User-Agent` = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.81 Safari/537.36 Edg/104.0.1293.47"
+    `User-Agent` = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.27"
   )
-
 
   responseJSON <- httr::GET(urlJSON, h)
 
-  # HTTP Error Code
+  # HTTP Error Codes
   # https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
   if(responseJSON$status_code >= 400) {
     tmp <- paste0(" HTTPCODE=", responseJSON$status_code,
@@ -98,9 +102,15 @@ download_by_id <- function(id, dest = NA, overwrite = FALSE){
     return(NULL)
   }
 
-  # GET PAGE Response
+    # GET PAGE Response
   urlPAGE <- gsub("%ID%", id, "https://gothamcity.ch/?p=%ID%")
   responsePAGE <- httr::GET(urlPAGE, h)
+
+  # Browse pageURL
+  if(is.integer(as.integer(browse))) {
+    if(which(id == posts$id) <= browse)
+      browseURL(urlPAGE)
+  }
 
   # Show progress
   cat(id, " ")
