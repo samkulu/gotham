@@ -62,10 +62,8 @@ download_by_id <- function(id, dest = NA, overwrite = FALSE, browse = 3L){
 
 
   # Proxy-Server
-  proxy <- get_proxy()
-
   httr::set_config(
-    use_proxy(url = proxy, username=proxy_user[1],password = proxy_user[2] , auth="any"),
+    use_proxy(url = get_proxy(), username=proxy_user[1],password = proxy_user[2] , auth="any"),
     override = TRUE
   )
 

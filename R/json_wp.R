@@ -21,7 +21,9 @@ json_wp<- function(typ = "posts",  dest = NA){
                 json = "https://gothamcity.ch/wp-json/"
   )
 
-  tmp <- readLines(url, warn = FALSE)
+  # 2022-11-29 Changed
+  # tmp <- readLines(url, warn = FALSE)
+  tmp <- read_get(url)
 
   # Export
   if(is.na(dest) && exists("user")) dest <- user$DESTINATION
