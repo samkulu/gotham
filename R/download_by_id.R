@@ -37,7 +37,7 @@ download_by_id <- function(id, dest = NA, overwrite = FALSE, browse = 3L){
   }
 
   # Look for authentication cookie
-  if(grep("wfwaf-authcookie",cookie) < 1)
+  if(!grepl("wfwaf-authcookie",cookie))
     browser()
 
   stopifnot(exists("cookie"))
