@@ -10,7 +10,7 @@
 test_proxy <- function(proxy_user = NA){
   require(httr)
 
-  if (is.na(proxy_user))
+  if (length(proxy_user) == 1 && is.na(proxy_user))
     proxy_user <- get_proxy_user()
 
 
