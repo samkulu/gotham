@@ -15,7 +15,7 @@ test_proxy <- function(proxy_user = NA){
 
 
   # GET
-  tmp <- httr::GET("http://had.co.nz",
+  tmp <- httr::GET("https://had.co.nz",
                    httr::use_proxy(get_proxy(),
                                    username = proxy_user[1],
                                    password = proxy_user[2],
