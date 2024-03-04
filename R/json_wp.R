@@ -9,7 +9,7 @@
 #' posts <- json_wp()
 json_wp<- function(typ = "posts",  dest = NA){
   require(jsonlite)
-
+browser()
   # Request Typ
   url <- switch(typ,
                 posts = "https://gothamcity.ch/wp-json/wp/v2/posts",
@@ -24,6 +24,10 @@ json_wp<- function(typ = "posts",  dest = NA){
   # 2022-11-29 Changed
   # tmp <- readLines(url, warn = FALSE)
   tmp <- read_get(url)
+
+  # 2024-03-04 Changed
+  tmp <- gsub(".*(<script>.*</script>)(.*)", "\\2", tmp)
+
 
   # Export
   if(is.na(dest) && exists("user")) dest <- user$DESTINATION

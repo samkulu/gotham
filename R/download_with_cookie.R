@@ -1,5 +1,7 @@
 #' Dowload Client with Cookie
 #'
+#' This is a cookie aware download client.
+#'
 #' In this task, we need to create a cookie-aware download client in R.
 #' The client should be able to download files from a given URI
 #' (Uniform Resource Identifier) and save them to a specified destination.
