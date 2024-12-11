@@ -9,7 +9,7 @@
 #' posts <- json_wp()
 json_wp<- function(typ = "posts",  dest = NA){
   require(jsonlite)
-browser()
+
   # Request Typ
   url <- switch(typ,
                 posts = "https://gothamcity.ch/wp-json/wp/v2/posts",
