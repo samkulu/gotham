@@ -15,6 +15,8 @@
 download_by_id <- function(id, dest = NA, overwrite = FALSE, browse = 3L){
   require(httr)
 
+  stopifnot(!is.null(id))
+
   if(is.na(dest) && exists("user")) dest <- user$DESTINATION
   if(is.na(dest)) stop("Destination missing!")
 
