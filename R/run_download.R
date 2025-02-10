@@ -1,3 +1,10 @@
+#' Run Download Gotham Articles
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' run_download()
 run_download <- function(){
   set_user()
 
@@ -8,10 +15,11 @@ run_download <- function(){
   links <- page %>%
            html_nodes("div.post-intro a") %>%
            html_attr("href") %>%
-           sort()
+           sort() %>%
+           unique()
 
   yrs <- substr(links, 23, 26) %>% unique()
-  stopofnot(Sys.Date() %>% format("%Y") %in% yrs)
+  stopifnot(Sys.Date() %>% format("%Y") %in% yrs)
 
   # Destination
   if(exists("user")) dest <- user$DESTINATION
